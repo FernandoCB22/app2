@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Lista Temporal
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h2>Lista Temporal</h2>
+        {% if lista_temporal %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Documento</th>
+                        <th>Edad</th>
+                        <th>Género</th>
+                        <th>Correo Electrónico</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in lista_temporal %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>{{ usuario.apellidos }}</td>
+                            <td>{{ usuario.documentacion }}</td>
+                            <td>{{ usuario.edad }}</td>
+                            <td>{{ usuario.genero }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.telefono }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{url_for('.generar_excel_lista')}}" class="btn btn-primary">Generar Excel</a>
+            <a href="{{url_for('.borrar_lista_temporal')}}" class="btn btn-danger">Borrar Lista Temporal</a>
+        {% else %}
+            <p>No hay usuarios en la lista temporal.</p>
+        {% endif %}
+    </div>
+{% endblock %}

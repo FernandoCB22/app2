@@ -1,0 +1,64 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Diario de Madrid
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='estilo.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h2>Resultados de la Búsqueda</h2>
+        {% if resultados %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Documento</th>
+                        <th>Edad</th>
+                        <th>Género</th>
+                        <th>Correo Electrónico</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in resultados %}
+                        <tr>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>{{ usuario.apellidos }}</td>
+                            <td>{{ usuario.documentacion }}</td>
+                            <td>{{ usuario.edad }}</td>
+                            <td>{{ usuario.genero }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.telefono }}</td>
+                            <td>
+                                <a href="{{ url_for('.agregar_a_lista', id=usuario.id) }}" class="btn btn-success">Añadir a Lista</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No se encontraron resultados.</p>
+        {% endif %}
+        <!-- Formulario para generar el Excel -->
+        <form action="{{ url_for('.generar_excel') }}" method="GET">
+            <input type="hidden" name="nombre" value="{{ request.args.get('nombre', '') }}">
+            <input type="hidden" name="apellidos" value="{{ request.args.get('apellidos', '') }}">
+            <input type="hidden" name="documento" value="{{ request.args.get('documento', '') }}">
+            <input type="hidden" name="edad" value="{{ request.args.get('edad', '') }}">
+            <input type="hidden" name="genero" value="{{ request.args.get('genero', '') }}">
+            <input type="hidden" name="correo" value="{{ request.args.get('correo', '') }}">
+            <input type="hidden" name="telefono" value="{{ request.args.get('telefono', '') }}">
+
+            <!-- Botón para generar Excel -->
+            <button type="submit" class="btn btn-success mb-3">Generar Excel</button>
+        </form>
+
+    </div>
+{% endblock %}
+

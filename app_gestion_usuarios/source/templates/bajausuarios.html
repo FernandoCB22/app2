@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Baja de Usuarios
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h2>Baja de Usuarios</h2>
+        <form action="{{url_for('.bajausuarios')}}" method="POST">
+            <div class="form-group">
+                <label for="usuario_id">Selecciona el usuario a eliminar:</label>
+                <select class="form-control" id="usuario_id" name="usuario_id" required>
+                    {% for usuario in usuarios %}
+                        <option value="{{ usuario.id }}">{{ usuario.nombre }} {{ usuario.apellidos }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
+        </form>
+    </div>
+    
+{% endblock %}

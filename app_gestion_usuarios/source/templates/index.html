@@ -1,0 +1,82 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Diario de Madrid
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='estilo.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{url_for('.index')}}">Gestión de Usuarios - Proyecto Creativos</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{url_for('.index')}}">Home</a></li>
+            <li><a href="{{url_for('.alta_usuario')}}">Alta Usuario</a></li>
+            <li><a href="{{url_for('.bajausuarios')}}">Baja Usuario</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+        <h2>Formulario de Búsqueda</h2>
+        <form action="{{url_for('.resultados')}}" method="GET">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="documento">Documento (DNI/NIE)</label>
+                    <input type="text" class="form-control" id="documento" name="documento">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="edad">Edad</label>
+                    <input type="text" class="form-control" id="edad" name="edad">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="genero">Género</label>
+                    <select id="genero" class="form-control"  name="genero">
+                        <option value="">No especificado</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono">
+                </div>
+            </div>
+            <div class="form-row" action="{{url_for('.resultados')}}" method="GET">
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
